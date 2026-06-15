@@ -103,3 +103,5 @@ barplot(bar, main="Title of the bar chart", col = "#16CE84",
                border = "#CE169E", names.arg = c("A","B","C","D"),
                xlab = "Name of the bar chart", ylab = "Y axix name of the bar chart",
                horiz = TRUE )
+
+
