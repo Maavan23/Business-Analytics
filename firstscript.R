@@ -67,3 +67,39 @@ c = c('M','I','S','O')
 df_MY = data.frame(a,b,c)
 names(df_MY) = c('ID','Values','Names')
 df_MY
+
+#PIE Chart
+x = c(25,45,52,90)
+y = c("A","B","C","D")
+
+pie(x,y)
+
+#advance Pie
+pie(x,y, main = "Title of pie chart", col = rainbow(4))
+
+#percentage cal
+r = round(x/sum(x)*100)
+r
+
+new_label = paste(r,"%")
+new_label
+
+pie(x, new_label, main = "Title of the pie chart", col = rainbow(4))
+
+#Bar charts
+bar = c(25,34,76,90)
+
+barplot(bar)
+
+barplot(bar, main="Title of the bar chart")
+
+barplot(bar, main="Title of the bar chart", col = "#16CE84")
+
+barplot(bar, main="Title of the bar chart", col = "#16CE84",
+        border = "#CE169E", names.arg = c("A","B","C","D"),
+        xlab = "Name of the bar chart", ylab = "Y axix name of the bar chart")
+
+barplot(bar, main="Title of the bar chart", col = "#16CE84",
+               border = "#CE169E", names.arg = c("A","B","C","D"),
+               xlab = "Name of the bar chart", ylab = "Y axix name of the bar chart",
+               horiz = TRUE )
