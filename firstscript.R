@@ -104,4 +104,32 @@ barplot(bar, main="Title of the bar chart", col = "#16CE84",
                xlab = "Name of the bar chart", ylab = "Y axix name of the bar chart",
                horiz = TRUE )
 
+#Read_dataset
+getwd()
+
+Student_data = read.csv('stu.csv',header = TRUE, sep=",")
+Student_data
+
+#Central Tendency
+#measyres of location
+# 1) Mean (add all values and divide by how many values there are)
+#ex 6,7,8
+#Mean = (6+7+8)/3 = 7
+mean(Student_data$Marks)
+
+# 2) Median (put numbers in order and pick the middle one)
+median(Student_data$Marks)
+
+# 3) Mode(Most repeated value)
+#Find the mode
+mode_function <-function(x){
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x,ux)))]
+}
+
+mode_function(Student_data$Marks)
+
+
+
+
 
