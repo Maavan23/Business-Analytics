@@ -129,6 +129,29 @@ mode_function <-function(x){
 
 mode_function(Student_data$Marks)
 
+#Measures of Dispersion(Range , Variance, Standard Deviation,
+#IQR,Box plots)
+#means how spread out the data is (Measure data variability)
+getwd()
+
+Student_data = read.csv('stu.csv',header = TRUE, sep=",")
+Student_data
+
+#Calculate Range
+range_marks <- max(Student_data$Marks) - min(Student_data$Marks)
+range_marks
+
+#Calculate IQR Interquartile Range
+iqr_marks <- IQR(Student_data$Marks)
+iqr_marks
+
+#Variance and Standard Deviation
+var_marks <- var(Student_data$Marks)
+var_marks
+
+sd_marks <- sd(Student_data$Marks)
+sd_marks
+
 
 
 
