@@ -44,3 +44,12 @@ var_marks
 
 sd_marks <- sd(student_performance$Final_Exam_Score)
 sd_marks
+
+#ANOVA TEST
+result <- aov(Hours_Studied ~ Assignment_Score, data = Student_data)
+summary(result)
+#              Df  Sum Sq  Mean Sq  F value Pr(>F)
+#Gender        1   144     144.1    0.429   0.514
+#Residuals    98   32936   336.1
+#if Pr(>F) < 0.05 ==> Statically Significant
+#the average marks between Males and Females are Signficantly different.

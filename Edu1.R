@@ -129,8 +129,60 @@ mode_function <-function(x){
 
 mode_function(Student_data$Marks)
 
+#Calculate IQR Interquartile Range 
+iqr_marks <- var(Student_data$Marks)
+iqr_marks
 
+#Variance and Standard Deviation
+var_marks <- var(Student_data$Marks)
+var_marks
 
+sd_marks <- sd(Student_data$Marks)
+sd_marks
+
+#Box plot
+boxplot(Student_data$Marks, main="Boxplot od Student Marks",
+        ylab="Marks",
+        col="Orange",
+        border="Orange",
+        notch=TRUE)
+
+#Add mean line
+abline(h=mean(Student_data$Marks), col = "red", lwd = 2, lty = 2)
+
+#Add text label for mean
+text(x = 1.3, y = mean(Student_data$Marks),
+     labels = paste("Mean =", round(mean(Student_data$Marks))),
+     col = "red")
+     
+#Get the dataset path
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep = ",")
+Student_data
+
+#ANOA TEST
+result <- aov(Marks ~ Gender, data = Student_data)
+summary(result)
+#          Df Sum  Sq Mean Sq F value Pr(>F)
+#Gender    1  144   144.1  0.429      0.514
+#Residuals 98 32936 336.1
+#if Pr(>F) < 0.o5 ==> Statically Significant
+  #the average marks between Males and Females are Significantly different
+
+#if Pr(>5) >= 0.05 ==> Not Statically insignificant
+  #There is no strong evidence to say marks are different based on gender
+
+#Frequency Distribution and Interval and midpoint
+#1 create class intervals
+breaks <- seq(0, 100, by = 10) #creates ex :- 0-10,10-20
+
+#2 cut marks into Intervals
+Student_data$Interval <- cut(Student_data$Marks, breaks = breaks, right = FALSE)
+
+#3 Frequency table
+freq_table <- table(Student_data$Interval)
+freq_table
 
 
 
