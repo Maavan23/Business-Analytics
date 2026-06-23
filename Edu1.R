@@ -184,7 +184,64 @@ Student_data$Interval <- cut(Student_data$Marks, breaks = breaks, right = FALSE)
 freq_table <- table(Student_data$Interval)
 freq_table
 
+#Midpoint
+midpoints <- (head(breaks, -1)) + tail(breaks, -1) /2
+midpoints
 
+#Create Histogram
 
+barplot(freq_table,
+        main = "Histogram of Marks",
+        xlab = "Marks Range",
+        ylab = "Number of Students",
+        col = "lightblue",
+        boarder = "black")
+
+#Frequency Polygon (Midpoint & Lines)
+#Midpoints 
+midpoints <- (head(breaks, -1) + tail(breaks, -1))/2
+
+#convert frequency table to numaric vectors
+freq_values <- as.numeric(freq_table)
+
+#Convert frequency polygon
+plot(midpoints, freq_values, type = "o",
+     main = "Frequency Polygon",
+     xlab = "Midpoint of Marks Range",
+     ylab = "Number of Students",
+     pch = 16)
+
+#Bell Curve
+#1 Load data
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep = ",")
+Student_data
+
+#2 Calculate mean and Standard deviation
+#mean
+
+mean_marks <- mean(Student_data$Marks)
+mean_marks
+
+#SD
+
+sd_marks <- sd(Student_data$Marks)
+sd_marks
+
+# 3) create a sequence of X values
+x_values <- seq(min(Student_data$Marks), max(Student_data$Marks), length=10)
+
+#calculate the normal distribution Y values using dnorm()
+y_values <- dnorm(x_values , mean = mean_marks, sd = sd_marks)
+
+#4) plot
+plot(x_values, y_values, type = "l", col = "blue", lwd =2, 
+     main = "Bell curve of student marks",
+     xlab = "Marks", ylab = "Density")
+
+#with Package
+install.packages("ggplot2")
+library(ggplot2)
 
 

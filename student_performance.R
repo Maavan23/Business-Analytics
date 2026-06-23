@@ -53,3 +53,59 @@ summary(result)
 #Residuals    98   32936   336.1
 #if Pr(>F) < 0.05 ==> Statically Significant
 #the average marks between Males and Females are Signficantly different.
+
+#Frequency Distribution and Interval and midpoint
+#1 create class intervals
+breaks <- seq(0, 100, by = 10) #creates ex :- 0-10,10-20
+
+#2 cut marks into Intervals
+student_performance$Interval <- cut(student_performance$Final_Exam_Score, breaks = breaks, right = FALSE)
+
+#3 Frequency table
+freq_table <- table(student_performance$Interval)
+freq_table
+
+#Midpoint
+midpoints <- (head(breaks, -1)) + tail(breaks, -1) /2
+midpoints
+
+#Create Histogram
+
+barplot(freq_table,
+        main = "Histogram of student_performance",
+        xlab = "Marks Range",
+        ylab = "Number of Students",
+        col = "lightblue",
+        boarder = "black")
+
+#Frequency Polygon (Midpoint & Lines)
+#Midpoints 
+midpoints <- (head(breaks, -1) + tail(breaks, -1))/2
+
+#convert frequency table to numaric vectors
+freq_values <- as.numeric(freq_table)
+
+#Convert frequency polygon
+plot(midpoints, freq_values, type = "o",
+     main = "Frequency Polygon",
+     xlab = "Midpoint of Marks Range",
+     ylab = "Number of Students",
+     pch = 16)
+
+#Bell Curve
+#1 Load data
+getwd()
+
+student_performance = read.csv('student_performance.csv', header = TRUE, sep = ",")
+student_performance
+
+#2 Calculate mean and Standard deviation
+#mean
+
+mean_marks <- mean(student_performance$Final_Exam_Score)
+mean_marks
+
+#SD
+
+sd_marks <- sd(student_performance$Final_Exam_Score)
+sd_marks
