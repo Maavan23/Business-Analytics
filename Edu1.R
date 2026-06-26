@@ -244,4 +244,16 @@ plot(x_values, y_values, type = "l", col = "blue", lwd =2,
 install.packages("ggplot2")
 library(ggplot2)
 
+#Mean Standard Deviation
+mean_marks <- mean(Student_data$Marks)
+sd_marks <- sd(Student_data$Marks)
+
+#Bell curve plot
+ggplot(Student_data, aes(x = Marks)) +
+  geom_histogram(aes(y=..density..), bins=15, fill="skyblue",
+                 color="black", alpha=0.6) +
+  stat_function(fun = dnorm, args = list(mean = mean_marks, sd = sd_marks),
+                color="red", size=1.2) +
+  labs(title = "Bell Curve of Student Marks", x = "Marks", y = "Density")
+
 
