@@ -256,4 +256,23 @@ ggplot(Student_data, aes(x = Marks)) +
                 color="red", size=1.2) +
   labs(title = "Bell Curve of Student Marks", x = "Marks", y = "Density")
 
+#Hypothesis testing
+#Perform a statistical hypothesis test to determine where there
+#is a significant difference difference in the average marks obtained by 
+#male and female students.
+#Provide both numerical and graphical outputs.
+#Clearly state the null and alternative hypotheses.
+#Discuss the practical significance of your findings for 
+#academic decision-making (eg:- gender-based performance support programs).
+Student_data = read.csv('stu.csv', header = TRUE, sep = ",")
+Student_data
 
+#View Gender breakdown
+table(Student_data$Gender)
+
+#Check means 
+aggregate(Marks ~ Gender, data = Student_data, mean)
+#Visual comparison
+boxplot(Marks ~ Gender, data = Student_data, col = c("lightblue", "lightgreen"),
+        main = "Comparison of Marks by Gender",
+        xlab = "Gender", ylab = "Marks")
