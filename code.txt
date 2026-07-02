@@ -1,0 +1,455 @@
+A <- 20
+
+A
+
+w = 45
+e = 67.5
+s= ""
+r = TRUE
+
+class(w)
+class(e)
+class(s)
+class(r)
+
+
+#Vectors
+#One Dimensional Arrays
+vec_num1 = c(1:5) 
+vec_num2 = c(20,10,30,25,40) 
+vec_num3 = c(1:9) 
+
+vec_num4 = c(2,2,2)
+vec_num5 = c(2,4,6)
+
+vec_num1
+vec_num2
+vec_num3
+
+#Vector Arithmetic
+vec_num1+vec_num2
+vec_num1-vec_num2
+vec_num1*vec_num2
+vec_num1/vec_num2
+vec_num5^vec_num4
+
+#Matrix
+# 2 Dimension Arrays
+z = c(1:6)
+u = c(4,5,6,7,8,1)
+mat_A = matrix(data=z, nrow = 3, ncol= 2, byrow = "False")
+
+mat_A
+mat_B = matrix(data=u, nrow = 3, ncol= 2, byrow = "True")
+
+mat_B 
+
+#addition
+add_AB = mat_A+mat_B
+add_AB
+
+#substraction
+sub_AB = mat_A-mat_B
+sub_AB
+
+#Devition
+dev_AB = mat_A/mat_B
+dev_AB
+
+#Multiplication
+mul_AB = mat_A*mat_B
+mul_AB
+
+#Data Frames
+a = c(10,20,30,40)
+b = c(1:4)
+c = c('M','I','S','O')
+
+df_MY = data.frame(a,b,c)
+names(df_MY) = c('ID','Values','Names')
+df_MY
+
+#PIE Chart
+x =c(25,45,52,90)
+y = c("A","B","C","D")
+
+pie(x,y)
+
+#advance Pie
+pie(x,y, main = "Title of the pie chart", col = rainbow(4))
+
+#percentage cal
+r = round(x/sum(x)*100)
+r
+
+new_label = paste(r,"%")
+new_label
+
+pie(x,new_label, main = "Title of the pie chart", col = rainbow(4))
+
+
+#Bar Charts
+bar = c(25,34,76,90)
+
+barplot(bar)
+
+barplot(bar, main="Title of the bar chart")
+
+barplot(bar, main="Title of the bar chart",col = "#16CE84")
+
+barplot(bar, main="Title of the bar chart",col = "#16CE84", 
+        border = "#CE169E", names.arg = c("A","B","C","D"), 
+        xlab = " Name of the bar chart", ylab = "Y axix name of the bar chart " )
+
+barplot(bar, main="Title of the bar chart",col = "#16CE84", 
+        border = "#CE169E", names.arg = c("A","B","C","D"), 
+        xlab = " Name of the bar chart", ylab = "Y axix name of the bar chart ", 
+        horiz = TRUE )
+
+
+#Read Dataset
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+#Central Tendency
+#Measures of location
+#1) Mean (add all values and divide by how many values there are)
+#ex 6,7,8
+#Mean = (6+7+8)/3 = 7
+mean(Student_data$Marks)
+
+#2) Median (put numbers in order and pick the middle one)
+median(Student_data$Marks)
+
+#3) Mode(Most repeated value)
+#Find the mode
+mode_function <- function(x){
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x,ux)))]
+}
+
+mode_function(Student_data$Marks)
+
+#Measures of Dispersion(Range , Variance,Standard Deviation,
+#IQR,Box plots)
+#means how spread out the data is (Measure data variability)
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+#Calculate Range
+range_marks <- max(Student_data$Marks) - min(Student_data$Marks)
+range_marks
+
+#Calculate IQR Interquartile Range
+iqr_marks <- IQR(Student_data$Marks)
+iqr_marks
+
+#Variance and Standard Deviation
+var_marks <- var(Student_data$Marks)
+var_marks
+
+sd_marks <- sd(Student_data$Marks)
+sd_marks
+
+#Box plot
+boxplot(Student_data$Marks, main="Boxplot od Student Marks", 
+        ylab = "Marks",
+        col = "orange",
+        border= "brown",
+        notch =TRUE)
+
+# Add mean line
+abline(h = mean(Student_data$Marks), col = "red", lwd = 2, lty = 2)
+
+# Add text label for mean
+text(x = 1.3, y = mean(Student_data$Marks),
+     labels = paste("Mean =", round(mean(Student_data$Marks), 2)),
+     col = "red")
+
+#Get The dataset path
+getwd()
+
+
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+#ANOVA TEST
+result <- aov(Marks ~ Gender, data = Student_data)
+summary(result)
+#             Df  Sum Sq Mean Sq F value  Pr(>F)
+#Gender       1    144    144.1    0.429   0.514
+#Residuals   98  32936   336.1  
+#if Pr(>F) < 0.05 ==> Statically Significant
+#the average marks between Males and Females are Significantly different.
+
+#if Pr(>5) >= 0.05 ==> Not Statically Significant
+#There is no strong evidence to say marks are different based on gender
+
+#Frequency Distribution and Interval and midpoint
+#1 create class intervals
+breaks <- seq(0, 100, by = 10) #creates ex :- 0-10,10-20
+
+#2 cut marks into Intervals
+Student_data$Interval <- cut(Student_data$Marks, breaks = breaks, right = FALSE)
+
+#3 Frequency table
+freq_table <- table(Student_data$Interval)
+
+freq_table
+
+#Midpoint
+midpoints <- (head(breaks, -1) + tail(breaks, -1)) /2
+midpoints
+
+
+#Create Histogram
+
+barplot(freq_table,
+        main = "Histogram of Marks",
+        xlab = "Marks Range",
+        ylab = "Number of Students",
+        col = "lightblue",
+        border= "black")
+
+#Frequency Polygon (Midpoint & Lines)
+#Midpoints
+midpoints <- (head(breaks, -1) + tail(breaks, -1))/2
+
+#convert frequency table to numaric vectors
+freq_values <- as.numeric(freq_table)
+
+#plot frequency polygen
+plot(midpoints, freq_values, type = "o",
+     main = "Frequency Polygon",
+     xlab = "Midpoint of Marks Range",
+     ylab = "Number of Students",
+     col = "blue",
+     pch = 16)
+
+#Bell Curve
+#1 Load data
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+#2 Calculate mean and Standard deviation
+#mean
+
+mean_marks <- mean(Student_data$Marks)
+mean_marks
+
+#SD
+
+sd_marks <- sd(Student_data$Marks)
+sd_marks
+
+# 3) create a sequence of X values
+x_values <- seq(min(Student_data$Marks), max(Student_data$Marks), length=10)
+
+#calculate the normal distribution Y values using dnorm()
+y_values <- dnorm(x_values , mean =mean_marks, sd=sd_marks )
+
+
+#4) plot
+plot(x_values, y_values, type = "l", col = "blue", lwd = 2,
+     main = "Bell curve of student marks",
+     xlab = "Marks", ylab = "Density")
+
+#with Package 
+install.packages("ggplot2")
+library(ggplot2)
+
+# Mean  Standard Deviation 
+mean_marks <- mean(Student_data$Marks)
+sd_marks <- sd(Student_data$Marks)
+
+# Bell curve  plot 
+ggplot(Student_data, aes(x=Marks)) +
+  geom_histogram(aes(y=..density..), bins=15, fill="skyblue", 
+                 color="black", alpha=0.6) +
+  stat_function(fun = dnorm, args = list(mean = mean_marks, sd = sd_marks), 
+                color="red", size=1.2) +
+  labs(title = "Bell Curve of Student Marks", x = "Marks", y = "Density")
+
+
+#Hypothesis testing
+#Perform a statistical hypothesis test to determine whether there 
+#is a significant difference in the average marks obtained by 
+#male and female students.
+#Provide both numerical and graphical outputs.
+#Clearly state the null and alternative hypotheses.
+#Discuss the practical significance of your findings for 
+#academic decision-making (e.g., gender-based performance support programs).
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+# View Gender breakdown
+table(Student_data$Gender)
+
+# Check means
+aggregate(Marks ~ Gender, data = Student_data, mean)
+# Visual comparison
+boxplot(Marks ~ Gender, data = Student_data, col=c("lightblue", "lightgreen"),
+        main="Comparison of Marks by Gender",
+        xlab="Gender", ylab="Marks")
+
+# Perform two-sample t-test (independent samples)
+t_test <- t.test(Marks ~ Gender, data = Student_data, var.equal = FALSE)
+
+# Output
+print(t_test)
+
+# Interpretation
+if (t_test$p.value < 0.05) {
+  cat("Reject H₀: There is a statistically significant 
+      difference in average marks between male and female students.\n")
+} else {
+  cat("Do not reject H₀: No significant difference 
+      in marks between male and female students.\n") 
+}
+
+
+
+install.packages("modeest")
+library(modeest)
+
+
+#Covariance, Pearson correlation, and Spearman correlation all measure the relationship between two variables, but differ in what they measure and how they interpret the data. Covariance indicates the direction of a linear relationship and is on an unlimited scale. Pearson correlation measures the strength and direction of a linear relationship, with values between -1 and +1. Spearman correlation measures the strength and direction of a monotonic relationship by analyzing the ranks of the data, also with values between -1 and +1. 
+#Covariance
+#What it is: A measure of the joint variability of two random variables, showing their tendency to move together. 
+#What it tells you: It indicates the direction of a relationship. A positive covariance means the variables tend to move in the same direction, while a negative covariance means they move in opposite directions. 
+#Scale: Unlimited, ranging from -∞ to +∞. 
+#Pearson Correlation Coefficient 
+#What it is: A statistical measure that assesses the strength and direction of a linear relationship between two variables.
+#What it tells you: It quantifies how well two variables are linearly related.
+#Scale: Ranges from -1 to +1.
+#+1: Perfect positive linear relationship.
+#-1: Perfect negative linear relationship.
+#0: No linear relationship.
+#Spearman Correlation Coefficient 
+#What it tells you: It assesses how well the relationship between two variables can be described using a monotonic function (i.e., a function that is either entirely non-increasing or entirely non-decreasing). It is calculated on the ranks of the data, making it less sensitive to outliers than Pearson correlation.
+#Scale: Ranges from -1 to +1.
+
+#Normality testing
+#1)Shapiro wilk testing
+shapiro.test(Student_data$Marks)
+
+#Shapiro wilk testing
+#p> 0.05 => Data is normally distributed
+#p< 0.05 => Data is not Normally distributed
+
+#2) Histogram for Normality Check
+hist(Student_data$Marks,
+     main = "Histogram of Mraks",
+     xlab = "Marks",
+     col = "lightblue",
+     border = "black")
+
+#Histogram bell sheped => Likely normal
+
+#3)QQ plot for normality check
+qqnorm(Student_data$Marks,
+       main = "Q-Q plot of Marks")
+qqline(Student_data$Marks,
+       col="red",
+       lwd = 2)
+#Pointes on the straight line = likely normal
+
+
+#SUMMARY statistics for Age and Marks
+summary(Student_data[,c("Age","Marks")])
+
+#Linear Regression & Correlation Analysis
+getwd()
+
+Student_data = read.csv('stu.csv', header = TRUE, sep=",")
+Student_data
+
+#Correlation Analysis
+#-1 to +1
+cor(Student_data$Age,Student_data$Marks)
+
+#Covariance Correlation
+#measures how two variables change together
+#if both increase -> positive Covariance
+#if one increases while other decreases -> negative Covariance
+#Near 0 No linear pattern
+cov(Student_data$Age, Student_data$Marks)
+
+# Calculate statistics
+cov_value <- cov(Student_data$Age, Student_data$Marks)
+pearson_value <- cor(Student_data$Age, Student_data$Marks, method = "pearson")
+spearman_value <- cor(Student_data$Age, Student_data$Marks, method = "spearman")
+
+# Create scatter plot with regression line
+plot(Student_data$Age, Student_data$Marks,
+     main = "Age vs Marks with Correlation & Covariance",
+     xlab = "Age",
+     ylab = "Marks",
+     pch = 19,
+     col = "darkblue")
+
+# Add regression line
+model <- lm(Marks ~ Age, data = Student_data)
+abline(model, col = "red", lwd = 2)
+
+# Add text box with values
+legend_text <- paste("Covariance:", round(cov_value, 2),
+                     "\nPearson:", round(pearson_value, 2),
+                     "\nSpearman:", round(spearman_value, 2))
+
+# Add text to plot
+legend("bottomright", legend = legend_text, bty = "n", cex = 0.9,
+       text.col = "black")
+
+
+
+#Linear Regression
+model <- lm(Marks ~ Age, data=Student_data)
+summary(model)
+
+#Graph
+plot(Student_data$Age, Student_data$Marks,
+     main="Age vs Marks (Regression Line)",
+     xlab = "Age", ylab = "Marks")
+abline(model, col="blue", lwd =2)
+
+par(mar = c(4, 4, 2, 1))  # bottom, left, top, right
+plot(Student_data$Age, Student_data$Marks,
+     main = "Age vs Marks (Regression Line)",
+     xlab = "Age", ylab = "Marks")
+abline(model, col = "blue", lwd = 2)
+
+
+#Time series Analysis & Forecasting
+# Assume Marks are collected monthly
+marks_ts <- ts(Student_data$Marks[1:24], frequency = 12, start = c(2023,1))
+
+# Plot Time Series
+plot(marks_ts, main = "Monthly Student Marks", ylab = "Marks")
+
+# Decompose time series
+decomposed <- decompose(marks_ts)
+plot(decomposed)
+
+# Forecasting
+install.packages("forecast")
+library(forecast)
+model_ets <- ets(marks_ts)
+forecast_data <- forecast(model_ets, h = 6)
+plot(forecast_data)
+
+
+
+
+
+
+
+
+
+
